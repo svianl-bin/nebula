@@ -1,0 +1,23 @@
+{
+    // 开启文件嵌套
+    "explorer.fileNesting.enabled": true,
+    "explorer.fileNesting.patterns": {
+        "package.json": "pnpm-lock.yaml,.nvmrc,.gitignore",
+        "tsconfig.json": "tsconfig.node.json,tsconfig.app.json",
+        "eslint.config.js": ".prettierrc,.prettierignore,stylelint.config.js,.stylelintignore,commitlint.config.js,postcss.config.js",
+        ".env": ".env.development,.env.production,.env.staging,.env.testing"
+    },
+    // 保存时自动修复Stylelint错误
+    "editor.codeActionsOnSave": {
+        "source.fixAll.stylelint": "always"
+    },
+    // 指定Stylelint验证的语言
+    "stylelint.validate": ["css", "scss", "less", "postcss", "vue"],
+    "stylelint.snippet": ["css", "scss", "less", "postcss", "vue"],
+    // 指定Stylelint配置文件路径
+    "stylelint.configFile": "stylelint.config.js",
+    // 配置路径别名，与vscode插件（别名路径跳转）配合使用
+    "alias-skip.mappings": {
+        "@images": "/src/assets/images"
+    }
+}
