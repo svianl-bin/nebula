@@ -1,9 +1,10 @@
 import axios, {
     type InternalAxiosRequestConfig,
     type AxiosResponse,
-    type AxiosRequestConfig
+    type AxiosRequestConfig,
+    type AxiosError
 } from 'axios'
-import { ApiCode, type ApiCodeType } from './code'
+import { ApiCode, type ApiRetryType } from './code'
 import { REQUEST_TIMEOUT, MAX_RETRIES, RETRY_DELAY } from '@config/index'
 
 const { VITE_APP_API_PREFIX, VITE_APP_API_URL, DEV } = import.meta.env
@@ -44,7 +45,7 @@ axiosInstance.interceptors.request.use(
         }
         return request
     },
-    (error) => {
+    (error: AxiosError) => {
         return Promise.reject(error)
     }
 )
@@ -54,7 +55,7 @@ axiosInstance.interceptors.response.use(
     (response: AxiosResponse) => {
         return response
     },
-    (error) => {
+    (error: AxiosError) => {
         return Promise.reject({ msg: error.message, code: error.response?.status })
     }
 )
@@ -67,7 +68,8 @@ async function retryRequest<T>(
     try {
         return await request<T>(config)
     } catch (error) {
-        if (retries > 0 && shouldRetry(error.code)) {
+        const err = error as ErrorResponse
+        if (retries > 0 && shouldRetry(err.code as unknown as ApiRetryType)) {
             await new Promise((resolve) => setTimeout(resolve, RETRY_DELAY))
             return retryRequest<T>(config, retries - 1)
         }
@@ -76,7 +78,7 @@ async function retryRequest<T>(
 }
 
 // 判断是否需要重试
-function shouldRetry(statusCode: ApiCodeType): boolean {
+function shouldRetry(statusCode: ApiRetryType): boolean {
     return [
         ApiCode.requestTimeout,
         ApiCode.internalServerError,

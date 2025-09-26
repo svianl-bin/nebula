@@ -15,3 +15,10 @@ export const ApiCode = {
 } as const
 
 export type ApiCodeType = (typeof ApiCode)[keyof typeof ApiCode]
+
+export type ApiRetryType =
+    | typeof ApiCode.requestTimeout
+    | typeof ApiCode.internalServerError
+    | typeof ApiCode.badGateway
+    | typeof ApiCode.serviceUnavailable
+    | typeof ApiCode.gatewayTimeout
