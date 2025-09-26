@@ -1,9 +1,20 @@
 // 修改 eslint 配置前，建议先删除缓存文件 .eslintcache
+import fs from 'fs'
+import path, { dirname } from 'path'
+import { fileURLToPath } from 'url'
 import eslintJs from '@eslint/js'
 import vueEslint from 'eslint-plugin-vue'
 import tsEslint from 'typescript-eslint'
 import globals from 'globals'
 import eslintPluginPrettier from 'eslint-plugin-prettier/recommended'
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
+
+// 读取 .auto-import.json 文件的内容，并将其解析为 JSON 对象
+const autoImportConfig = JSON.parse(
+    fs.readFileSync(path.resolve(__dirname, '.eslint-config-auto-import.json'), 'utf-8')
+)
 
 export default [
     // 指定全局变量和环境
@@ -46,11 +57,12 @@ export default [
     // 自定义规则
     {
         files: ['**/*.{js,mjs,cjs,ts,vue}'],
-        // languageOptions: {
-        //     ecmaVersion: 'latest',
-        //     sourceType: 'module',
-        //     globals: { browser: true, node: true }
-        // },
+        languageOptions: {
+            globals: {
+                // 合并从 autoImportConfig 中读取的全局变量配置
+                ...autoImportConfig.globals
+            }
+        },
         rules: {
             // 使用单引号
             quotes: ['error', 'single'],
