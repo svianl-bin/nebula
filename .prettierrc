@@ -5,5 +5,7 @@
     "singleQuote": true,
     "trailingComma": "none",
     "endOfLine": "auto",
-    "vueIndentScriptAndStyle": true
+    "vueIndentScriptAndStyle": true,
+    "plugins": ["prettier-plugin-tailwindcss"],
+    "tailwindStylesheet": "./src/assets/styles/index.css"
 }
