@@ -37,7 +37,7 @@ export default ({ mode }: ConfigEnv): UserConfigExport => {
                 dts: 'src/types/auto-imports.d.ts',
                 viteOptimizeDeps: true,
                 eslintrc: {
-                    enabled: true,
+                    enabled: false,
                     filepath: './.eslint-config-auto-import.json',
                     globalsPropValue: true
                 }
