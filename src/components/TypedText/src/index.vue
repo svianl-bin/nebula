@@ -80,8 +80,8 @@
     watch(
         () => strings,
         (newStrings) => {
+            mergedOptions.value.strings = newStrings
             if (typedInstance.value) {
-                mergedOptions.value.strings = newStrings
                 rebuild()
             }
         },

@@ -2,7 +2,7 @@ import Typed from 'typed.js'
 import type { TypedOptions, TypedInstance } from '../typed'
 import type { TemplateRef } from 'vue'
 
-export default function useTyped(el: TemplateRef, options: TypedOptions) {
+export default function useTyped(el: TemplateRef, options: Readonly<TypedOptions>) {
     const typedInstance = ref<TypedInstance | null>(null)
 
     const init = () => {
