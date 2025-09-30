@@ -20,5 +20,6 @@
     "alias-skip.mappings": {
         "@images": "/src/assets/images",
         "@styles": "/src/assets/styles"
-    }
+    },
+    "i18n-ally.localesPaths": ["src/locales", "src/locales/lang"]
 }
