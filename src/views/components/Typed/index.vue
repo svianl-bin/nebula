@@ -88,7 +88,7 @@
 </template>
 
 <script setup lang="ts">
-    import type { TypedInstanceRef } from '@/components/TypedText/typed'
+    import type { TypedInstanceRef } from '@/types/common'
 
     defineOptions({
         name: 'TypedPage'
